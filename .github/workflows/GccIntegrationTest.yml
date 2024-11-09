@@ -51,13 +51,14 @@ jobs:
           path: ./openRoot
         
       - name: Create Build Environment for open62541
+        shell: bash
         run: cmake -E make_directory ./openRoot/build
 
       - name: Configure open
         shell: bash
         working-directory: ./openRoot/build
         run: |
-          cmake -DCMAKE_BUILD_TYPE=Debug \
+          cmake -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
                 -DUA_NAMESPACE_ZERO=FULL \
                 -DBUILD_SHARED_LIBS=ON \
                 -DUA_ENABLE_SUBSCRIPTIONS_EVENTS=ON \
@@ -91,7 +92,7 @@ jobs:
         # Github Actions machines are (as of this writing) 3.28
         run: |
           cmake "$GITHUB_WORKSPACE" \
-                -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+                -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
                 -DENABLE_CONAN=OFF \
                 -DENABLE_TESTING=ON \
                 -DBUILD_SHARED_LIBS=ON \
