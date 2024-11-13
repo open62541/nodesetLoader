@@ -1,5 +1,5 @@
 ---
-name: Clang RelWithDebInfoAsan
+name: Build & Test (clang)
 
 on:
   push:
@@ -63,7 +63,7 @@ jobs:
         # Github Actions machines are (as of this writing) 3.28
         run: |
           cmake "$GITHUB_WORKSPACE" \
-                -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+                -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
                 -DENABLE_TESTING=ON \
                 -DBUILD_SHARED_LIBS=ON \
                 -DENABLE_ASAN=ON ..
@@ -73,7 +73,7 @@ jobs:
         working-directory: ${{ runner.temp }}/build
         # Execute the build.  You can specify a specific target
         # with "--target <NAME>"
-        run: cmake --build . --config "$BUILD_TYPE"
+        run: sudo cmake --build . --config "$BUILD_TYPE"
 
       - name: Test
         shell: bash

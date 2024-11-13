@@ -1,5 +1,5 @@
 ---
-name: WindowsBuildOnly
+name: Windows Build Only
 
 on:
   push:
@@ -34,6 +34,7 @@ jobs:
 
       - uses: ilammy/msvc-dev-cmd@v1
       - name: Build nodesetLoader
+        shell: bash
         run: |
           cd ./nodesetLoader && \
           cmake \
